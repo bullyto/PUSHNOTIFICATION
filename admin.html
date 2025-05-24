@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Envoyer une Notification</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; }
+    input, textarea { width: 100%; margin: 10px 0; padding: 8px; }
+    button { padding: 10px 20px; }
+  </style>
+</head>
+<body>
+  <h1>Envoyer une Notification</h1>
+  <input id="title" placeholder="Titre" />
+  <textarea id="message" placeholder="Message"></textarea>
+  <input id="image" placeholder="URL de l'image" />
+  <input id="url" placeholder="URL de redirection" />
+  <button onclick="send()">Valider</button>
+  <script>
+    async function send() {
+      await fetch('/.netlify/functions/send-notification', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: document.getElementById('title').value,
+          message: document.getElementById('message').value,
+          image: document.getElementById('image').value,
+          url: document.getElementById('url').value
+        })
+      });
+      alert("Notification envoyée !");
+    }
+  </script>
+</body>
+</html>
